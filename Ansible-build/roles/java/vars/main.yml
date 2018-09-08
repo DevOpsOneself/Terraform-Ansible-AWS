@@ -1,0 +1,10 @@
+java_version: "jdk1.8.0_181"
+java_file: "jdk-8u181-linux-x64.tar.gz"
+software_files_path: "/opt/app"
+software_install_path: "/usr/local"
+java_file_url: "../files/{{java_file}}"
+
+java_home: "/usr/java/{{java_version}}"
+java_file_path: "{{ software_files_path }}/{{ java_file }}"
+java_install_path: "{{ software_install_path }}/{{java_version}}"
+

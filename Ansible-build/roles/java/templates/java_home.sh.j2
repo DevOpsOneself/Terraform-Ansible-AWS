@@ -1,0 +1,8 @@
+#!/bin/bash
+
+JAVA_HOME={{ java_home }}
+CLASSPATH=$JAVA_HOME/lib:$JAVA_HOME/jre/lib
+JRE_HOME=${JAVA_HOME}/jre
+PATH=$PATH:$JAVA_HOME/bin
+
+export JAVA_HOME CLASSPATH JRE_HOME PATH

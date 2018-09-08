@@ -1,0 +1,6 @@
+- hosts: localhost
+  connection: local
+  gather_facts: True
+  roles: 
+    - awsec2
+- import_playbook: WSO2EI.yml

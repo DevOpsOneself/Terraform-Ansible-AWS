@@ -1,0 +1,10 @@
+---
+- name: Install common components
+  become_user: root
+  become: true
+  yum:
+    name: "{{item}}"
+    state: installed
+  with_items:
+    - wget
+    - unzip

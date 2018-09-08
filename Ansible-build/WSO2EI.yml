@@ -1,0 +1,9 @@
+- hosts: role_wso2ei
+  # connection: local
+  user: ec2-user
+  gather_facts: True
+  roles:
+    - common
+    - java
+    - wso2ei
+        

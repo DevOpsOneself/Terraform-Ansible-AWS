@@ -1,0 +1,8 @@
+.ansible
+*.retry
+
+# terraform state files
+*.tfstate*
+
+# terraform configure files
+.terraform

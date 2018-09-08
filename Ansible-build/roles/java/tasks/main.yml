@@ -1,0 +1,49 @@
+---
+- name: Check if java local file is already configured.
+  stat: path=/tmp/jdk-8u181-linux-x64.tar.gz
+  #connection: local
+  register: java_file_result
+
+- name: Simple GET operation
+  get_url:
+    url: https://s3.amazonaws.com/wso2-aws/package/jdk-8u181-linux-x64.tar.gz
+    dest: /tmp/jdk-8u181-linux-x64.tar.gz
+  when: not java_file_result.stat.exists
+
+- name: Copy java file to agent.
+  become_user: root
+  become: true
+  unarchive:
+    copy: no
+    src: /tmp/jdk-8u181-linux-x64.tar.gz
+    dest: "{{ software_install_path }}"
+
+- name: Check if java remote soft link  is already configured.
+  become_user: root
+  become: true
+  stat: path={{ java_home }}
+  register: java_soft_link_result
+
+- name: Create java home dir.
+  become_user: root
+  become: true
+  file: dest=/usr/java state=directory
+  when: not java_soft_link_result.stat.exists
+
+- name: Create java dir soft link.
+  become_user: root
+  become: true
+  file: "src={{ java_install_path }} dest={{ java_home }} state=link"
+  when: not java_soft_link_result.stat.exists
+
+# Environment setup.
+- name: Set JAVA_HOME if configured.
+  become_user: root
+  become: true
+  template:
+    src: java_home.sh.j2
+    dest: /etc/profile.d/java_home.sh
+    mode: 0755
+  when: java_home !=''
+
+- debug: var=result.stderr
