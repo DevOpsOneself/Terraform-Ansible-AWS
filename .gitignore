@@ -6,3 +6,7 @@
 
 # terraform configure files
 .terraform
+
+# key
+*.pem
+*.pub
